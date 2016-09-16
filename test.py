@@ -3,16 +3,21 @@ from route import *
 from model import *
 
 
-myRoute = Route(54, "Lviv", "Kyiv")
+route1 = Route(54, "Lviv", "Kyiv")
+route2 = Route(34, "Zhytomyr", "Kyiv")
 
-myBus = Bus("Etalon", 134, myRoute)
+bus1 = Bus("Etalon", 134, route1)
+bus2 = Bus("Ikarus", 35, route2)
 
-bus2 = Bus("Ikarus", 35, myRoute)
+bus3 = Bus("Gazel", 42, Route(45, "Slav", "Kyiv"))
 
-myModel= Model()
+myModel = Model()
 
-myModel.addRace(myBus)
-myModel.addRace(bus2)
+myModel.add_bus(bus1)
+myModel.add_bus(bus2)
+myModel.add_bus(bus3)
 
-print myModel.races
+print myModel.list_of_buses()
+print myModel.list_of_routes()
 
+print myModel.get_bus_busNumber(134)
