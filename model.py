@@ -37,9 +37,50 @@ class Model:
     def list_of_routes(self):
         return list(self.routes)
 
-    def get_bus_busNumber(self, busNumber):
+    def get_bus_with_busNumber(self, busNumber):
         bus = None
         if isinstance(busNumber, int):
             for b in self.buses:
-                bus = b
+                if b.busNumber == busNumber:
+                    bus = b
+                    break
         return bus
+    def get_bus_with_name(self, bus_name):
+        bus = None
+        if isinstance(bus_name, str):
+            for b in self.buses:
+                if b.name == bus_name:
+                    bus = b
+                    break
+        return bus
+
+    def get_route_with_number(self, routeNumber):
+        route = None
+        if isinstance(routeNumber, int):
+            for r in self.routes:
+                if r.routeNumber == routeNumber:
+                    route = r
+                    break
+        return route
+    
+    def get_route_with_departure(self, departure):
+        route = None
+        if isinstance(departure, str):
+            for r in self.routes:
+                if r.departure == departure:
+                    route = r
+                    break
+        return route
+
+    def get_all_bus_numbers(self):
+        return [x.busNumber for x in self.buses]
+    def get_all_bus_names(self):
+        return [x.name for x in self.buses]
+    def get_all_route_numbers(self):
+        return [x.routeNumber for x in self.routes]
+    def get_all_route_names(self):
+        return [x.route_info() for x in self.routes]
+
+    def buses_list_dictionary_represantation(self):
+        return [x.dictionary_represantation() for x in self.buses]
+
