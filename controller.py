@@ -3,6 +3,7 @@ from model import *
 from view import *
 from bus import * 
 from route import *
+import random
 
 
 myModel = Model()
@@ -28,17 +29,16 @@ def start():
     
     while mode != 8:
         if mode == 1:
-            print "Display list of available buses"
             available_buses()
             View.menu_start()
         elif mode == 2:
-            print "Adding bus"
+            adding_bus_session()
             View.menu_start()
         elif mode == 3:
-            print "Deleting bus"
+            deleting_bus_session()
             View.menu_start()
         elif mode == 4:
-            print "Changing existing bus"
+            change_existing_bus_session()
             View.menu_start()
         elif mode == 5:
             print "Adding route"
@@ -56,9 +56,71 @@ def start():
 
 
 def available_buses():
-    View.display_all_buses(myModel.buses_list_dictionary_represantation())
+    View.display(myModel.buses_list_dictionary_represantation())
 
 def adding_bus_session():
-    View.add_new()
+    View.add_new_bus()
+    try:
+        name = str(raw_input('Name: '))
+        bus_number = int(raw_input('Bus number : '))
+        View.display(myModel.routes_list_dictionary_represantation())
+        route = int(raw_input('Route number : '))
+    except ValueError:
+        View.error_message()
+    else:
+        if bus_number in myModel.get_all_bus_numbers():
+            View.warn_message()
+            View.success_message()
+            while (bus_number in myModel.get_all_bus_numbers()):
+                bus_number = random.randint(1, 200)
+            new_bus = Bus(name, bus_number, myModel.get_route_with_number(route))
+            myModel.add_bus(new_bus)
+        else:
+            View.success_message()
+            new_bus = Bus(name, bus_number, myModel.get_route_with_number(route))
+            myModel.add_bus(new_bus)
+
+def deleting_bus_session():
+    View.delete_bus()
+    try:
+        available_buses()
+        bus_number = int(raw_input())
+    except ValueError:
+        View.error_message()
+    else:
+        if (bus_number in myModel.get_all_bus_numbers()):
+            myModel.remove_bus(myModel.get_bus_with_busNumber(bus_number))
+            View.success_message()
+        else:
+            View.wrong_number_message()
+
+def change_existing_bus_session():
+    View.change_bus_one()
+    available_buses()
+    try:
+       choice = int(raw_input())
+    except ValueError:
+        View.wrong_number_message()
+    else:
+        print int(choice)
+        if choice != 0:
+            View.change_bus_two()
+            if (choice in myModel.get_all_bus_numbers()):
+                bus_changing = myModel.get_bus_with_busNumber(choice)
+                try:
+                    name = str(raw_input('Name: '))
+                    View.display(myModel.routes_list_dictionary_represantation())
+                    route_number = int(raw_input('Route number : '))
+                except ValueError:
+                    View.error_message()
+                else:
+                    if route_number in myModel.get_all_route_numbers():
+                        if name != '0':
+                            bus_changing.name = name
+                        if route_number != 0:
+                            bus_changing.route = myModel.get_route_with_number(route_number)
+                    else:
+                        View.wrong_number_message()
+
 
 

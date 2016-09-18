@@ -83,4 +83,6 @@ class Model:
 
     def buses_list_dictionary_represantation(self):
         return [x.dictionary_represantation() for x in self.buses]
+    def routes_list_dictionary_represantation(self):
+        return [x.dictionary_represantation() for x in self.routes]
 

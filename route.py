@@ -15,12 +15,14 @@ class Route:
     def route_info(self):
         return "%s-%s" %(self.departure, self.__destination)
 
+    def dictionary_represantation(self):
+        return {"route" : self.route_info(), "number" : self.routeNumber}
+
     def __eq__(self, other):
         result = False
         if isinstance(other, Route) and self.routeNumber == other.routeNumber and self.departure == other.departure and self.sits_number == other.sits_number:
             result = True
         return result
-
     def __str__(self):
         return "%s" %self.route_info()
     def __repr__(self):
