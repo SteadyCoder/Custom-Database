@@ -93,7 +93,7 @@ ENV/
 .ropeproject
 
 # Swap files
-.swp
+*.swp
 
 ### macOS ###
 *.DS_Store
