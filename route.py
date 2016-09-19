@@ -16,7 +16,7 @@ class Route:
         return "%s-%s" %(self.departure, self.__destination)
 
     def dictionary_represantation(self):
-        return {"route" : self.route_info(), "number" : self.routeNumber, "sits number" : self.sits_number}
+        return {"route" : self.route_info(), "route number" : self.routeNumber, "sits number" : self.sits_number}
 
     def __eq__(self, other):
         result = False

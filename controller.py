@@ -1,33 +1,44 @@
 # Module controller
-from model import *
+import model
 from view import *
-from bus import * 
-from route import *
+import bus
+import route
 import random
+import pickle
 
-
-myModel = Model()
+myModel = None
     
-def run():    
-    route1 = Route(54, "Lviv", 38)
-    route2 = Route(34, "Zhytomyr", 54)
+def run(file_name):    
+    read_file(file_name)
+    start(file_name)
+    
+def read_file(file_name):
+    my_file = open(file_name, "rb")
+    global myModel
+    try:
+        myModel = pickle.load(my_file)
+    except EOFError:
+        myModel = Model()
+    my_file.close()
 
-    bus1 = Bus("Etalon", 134, route1)
-    bus2 = Bus("Ikarus", 35, route2)
+def write_to_file(file_name):
+    my_file = open(file_name, "wb")
+    global myModel
+    pickle.dump(myModel , my_file)
+    my_file.close()
+    
 
-    bus3 = Bus("Gazel", 42, Route(45, "Slav", 44))
-
-    myModel.add_bus(bus1)
-    myModel.add_bus(bus2)
-    myModel.add_bus(bus3)
-
-    start()
-        
-def start():
+def start(file_name):
     mode = 0
     View.menu_start()
     
     while mode != 9:
+        try:
+            mode = int(raw_input('Choose: '))
+        except ValueError:
+            View.wrong_option()
+            mode = 0
+
         if mode == 1:
             available_buses()
             View.menu_start()
@@ -50,13 +61,15 @@ def start():
             deleting_route_session()
             View.menu_start()
         elif mode == 8:
-            print "Changing existing route"
             change_existing_route_session()
             View.menu_start()
-
-        mode = int(raw_input())
-
-
+        elif mode == 9:
+            write_to_file(file_name)
+            View.exit_message()
+        elif mode not in range(1, 10):
+            View.wrong_number_message()
+            View.menu_start()
+       
 
 # Methods for bus operation ------------------------------------
 def available_buses():
@@ -66,6 +79,8 @@ def adding_bus_session():
     View.add_new_bus()
     try:
         name = str(raw_input('Name: '))
+        if not len(name):
+            raise ValueError
         bus_number = int(raw_input('Bus number : '))
         View.display(myModel.routes_list_dictionary_represantation())
         route_number = int(raw_input('Route number : '))
@@ -79,14 +94,14 @@ def adding_bus_session():
                 bus_number = random.randint(1, 200)
             route = None
             if route_number != 0:
-                route = myModel.get_route_with_number(route)
+                route = myModel.get_route_with_number(route_number)
             new_bus = Bus(name, bus_number, route)
             myModel.add_bus(new_bus)
         else:
             View.success_message()
             route = None
             if route_number != 0:
-                route = myModel.get_route_with_number(route)
+                route = myModel.get_route_with_number(route_number)
             new_bus = Bus(name, bus_number, route)
             myModel.add_bus(new_bus)
 
@@ -94,7 +109,7 @@ def deleting_bus_session():
     View.delete_bus()
     try:
         available_buses()
-        bus_number = int(raw_input())
+        bus_number = int(raw_input('Bus number: '))
     except ValueError:
         View.error_message()
     else:
@@ -108,7 +123,7 @@ def change_existing_bus_session():
     View.change_bus_one()
     available_buses()
     try:
-       choice = int(raw_input())
+        choice = int(raw_input('Bus number: '))
     except ValueError:
         View.wrong_number_message()
     else:
@@ -162,7 +177,7 @@ def deleting_route_session():
     View.delete_route()
     try:
         available_routes()
-        route_number = int(raw_input())
+        route_number = int(raw_input('Route number: '))
     except ValueError:
         View.error_message()
     else:
@@ -170,19 +185,19 @@ def deleting_route_session():
             myModel.remove_route(myModel.get_route_with_number(route_number))
             View.success_message()
         else:
-            View.wrong_message()
+            View.wrong_number_message()
 
 def change_existing_route_session():
     View.change_route_one()
     available_routes()
     try:
-       choice = int(raw_input())
+        choice = int(raw_input('Route number: '))
     except ValueError:
         View.wrong_number_message()
     else:
         if choice != 0:
-            View.change_route_two()
             if (choice in myModel.get_all_route_numbers()):
+                View.change_route_two() 
                 route_changing = myModel.get_route_with_number(choice)
                 try:
                     departure = str(raw_input('Departure: '))
@@ -194,3 +209,5 @@ def change_existing_route_session():
                         route_changing.departure = departure
                     if sits_number != 0:
                         route_changing.sist_number = sits_number
+            else:
+                View.wrong_number_message()

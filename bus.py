@@ -11,7 +11,7 @@ class Bus:
         if self.route is None:
             return "Name %s, bus number %d, no route" %(self.name, self.busNumber)
         else:
-            return "Name %s, bus number %d, route %s" %(self.name, self.busNumber, self.route.routeInfo())
+            return "Name %s, bus number %d, route %s" %(self.name, self.busNumber, self.route.route_info())
 
     def update_bus_route(self, route):
         self.route = route

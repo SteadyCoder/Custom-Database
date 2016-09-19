@@ -1,3 +1,3 @@
 import controller
 
-controller.run()
+controller.run("info")

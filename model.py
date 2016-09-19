@@ -10,14 +10,11 @@ class Model:
     def add_bus(self, bus):
         if bus is not None:
             self.buses.append(bus)
-        if bus.route is not None:
-            self.add_route(bus.route)
 
     def remove_bus(self, bus):
         if bus is not None:
             for b in self.buses:
                 if bus == b:
-                    self.remove_route(bus.route)
                     self.buses.remove(bus)
                     break;
 

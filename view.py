@@ -78,6 +78,7 @@ class View:
 
     @staticmethod
     def warn_message():
+        View.separator_line()
         print "This number is alreay exist. Number was generated automaticaly"
         View.separator_line()
 
@@ -90,3 +91,13 @@ class View:
     def wrong_number_message():
         print "No existing number"
         View.separator_line()
+
+    @staticmethod
+    def wrong_option():
+        print "No existing option"
+        View.separator_line()
+
+    @staticmethod
+    def exit_message():
+        View.separator_line()
+        print "Thank you. Goodbye"
