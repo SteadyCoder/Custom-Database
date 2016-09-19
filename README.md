@@ -9,7 +9,9 @@ Programm has starting menu, to modificate entyties.
 To make it run you just need python in your terminal or some python IDE(PhpStorm)
 
 ## Some tests
-    
+ 
+![alt tag](https://raw.githubusercontent.com/SteadyCoder/Custom-Database/master/test_pictures/start.png)
+   
 ## Built with
 Python 2.7.12
 MacVim - text editor
