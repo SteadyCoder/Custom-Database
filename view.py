@@ -102,3 +102,8 @@ class View:
     def exit_message():
         View.separator_line()
         print "Thank you. Goodbye"
+
+    @staticmethod
+    def error_serialize_message():
+        print "Incorrect file"
+        View.separator_line()

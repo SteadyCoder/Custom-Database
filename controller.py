@@ -18,15 +18,20 @@ def read_file(file_name):
     global myModel
     try:
         myModel = pickle.load(my_file)
-    except EOFError:
+    except (EOFError, UnpicklingError):
         myModel = Model()
-    my_file.close()
+    finally:
+        my_file.close()
 
 def write_to_file(file_name):
     my_file = open(file_name, constants.file_write_option)
     global myModel
-    pickle.dump(myModel , my_file)
-    my_file.close()
+    try:
+        pickle.dump(myModel , my_file)
+    except PicklingError:
+        View.error_serialize_message()
+    finally:
+        my_file.close()
     
 
 def start(file_name):
@@ -34,7 +39,7 @@ def start(file_name):
     View.menu_start()
     
     while mode != 9:
-        try:
+        try: 
             mode = int(raw_input(constants.const_choose))
         except ValueError:
             View.wrong_option()
@@ -79,7 +84,7 @@ def available_buses():
 def adding_bus_session():
     View.add_new_bus()
     try:
-        name = str(raw_input(constants.const_name))
+        name = str(raw_input(constants .const_name))
         if not len(name):
             raise ValueError
         bus_number = int(raw_input(constants.const_bus_number))
