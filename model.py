@@ -29,7 +29,13 @@ class Model:
         if route is not None:
             for rt in self.routes:
                 if rt == route:
+                    self.__delete_route_from_buses(route)          
                     self.routes.remove(route)
+
+    def __delete_route_from_buses(self, route):
+        for bus in self.buses:
+            if bus.route == route:
+                bus.route = None
 
     def list_of_buses(self):
         return list(self.buses)

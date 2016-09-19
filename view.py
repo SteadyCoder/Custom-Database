@@ -5,28 +5,28 @@ class View:
     @staticmethod
     def menu_start():
         print "1. Get list of available buses"
-        print "2. Add new bus"
-        print "3. Delete bus"
-        print "4. Change existing bus"
-        print "5. Add new route"
-        print "6. Delete route"
-        print "7. Change existing route"
-        print "8. Exit"
+        print "2. Get list of available routes"
+        print "3. Add new bus"
+        print "4. Delete bus"
+        print "5. Change existing bus"
+        print "6. Add new route"
+        print "7. Delete route"
+        print "8. Change existing route"
+        print "9. Exit"
         View.separator_line()
 
     @staticmethod
     def display(lst):
-        print "List of buses"
+        View.separator_line()
         for bus in lst: 
             print ", ".join(map(lambda tag: tag + ' : ' + str(bus[tag]), bus.keys()))
         View.separator_line()
 
-
+# Methods for operation with bus
     @staticmethod
     def add_new_bus():
         print "Add new bus"
-        print "Input name, number, and route number"
-        View.separator_line()
+        print "Input name, number, and route number. Enter 0 to route number to leave it empty"
 
     @staticmethod
     def delete_bus():
@@ -41,7 +41,32 @@ class View:
     def change_bus_two():
         print "Change bus items"
         print "Enter new value for item or enter 0 to skip"
+        
 
+# Methods for operation with route
+    @staticmethod
+    def add_new_route():
+        print "Add new route"
+        print "Input route departure, route number and number of sits"
+        View.separator_line()
+
+    @staticmethod
+    def delete_route():
+        print "Delete existing route"
+        print "Enter the number of route to be deleted"
+
+    
+    @staticmethod
+    def change_route_one():
+        print "Choose route with number or enter 0 to skip"
+
+    @staticmethod
+    def change_route_two():
+        print "Change route items"
+        print "Enter new value for item or enter 0 to skip"
+        
+
+# System methods
     @staticmethod
     def error_message():
         print "ERROR! Invalid input"

@@ -14,12 +14,13 @@ class Bus:
             return "Name %s, bus number %d, route %s" %(self.name, self.busNumber, self.route.routeInfo())
 
     def update_bus_route(self, route):
-        if route is not None:
-            self.route = route
+        self.route = route
 
     def dictionary_represantation(self):
-        return {'name' : self.name, 'busNumber' : self.busNumber, 'route' : self.route.route_info()}
-
+        if self.route is None:
+            return {'name' : self.name, 'busNumber' : self.busNumber, 'route' : 'No route'}
+        else:
+            return {'name' : self.name, 'busNumber' : self.busNumber, 'route' : self.route.route_info()}
     def __eq__(self, other):
         result = False
         if isinstance(other, Bus) and self.name == other.name and self.busNumber == other.busNumber and self.route == other.route:
