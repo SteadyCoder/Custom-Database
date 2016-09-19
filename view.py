@@ -4,6 +4,7 @@ class View:
 
     @staticmethod
     def menu_start():
+        View.separator_line()
         print "1. Get list of available buses"
         print "2. Get list of available routes"
         print "3. Add new bus"

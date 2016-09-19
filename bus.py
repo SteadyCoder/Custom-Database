@@ -2,6 +2,12 @@
 from route import *
 
 class Bus:
+
+    __name_key = "name"
+    __bus_number_key = "bus number"
+    __route_key = "route"
+    __const_no_route = "No route"
+
     def __init__(self, name, busNumber, route = None):
         self.name = name
         self.busNumber = busNumber
@@ -18,9 +24,9 @@ class Bus:
 
     def dictionary_represantation(self):
         if self.route is None:
-            return {'name' : self.name, 'busNumber' : self.busNumber, 'route' : 'No route'}
+            return {self.__name_key : self.name, self.__bus_number_key : self.busNumber, self.__route_key : self.__const_no_route}
         else:
-            return {'name' : self.name, 'busNumber' : self.busNumber, 'route' : self.route.route_info()}
+            return {self.__name_key : self.name, self.__bus_number_key : self.busNumber, self.__route_key : self.route.route_info()}
     def __eq__(self, other):
         result = False
         if isinstance(other, Bus) and self.name == other.name and self.busNumber == other.busNumber and self.route == other.route:

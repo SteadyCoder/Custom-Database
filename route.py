@@ -3,6 +3,9 @@
 class Route:
 
     __destination = "Kyiv"
+    __route_key = "route"
+    __route_number_key = "route_number"
+    __sits_number_key = "sits number"
 
     def __init__(self, routeNumber, departure, sits_number):
         self.routeNumber = routeNumber
@@ -16,7 +19,7 @@ class Route:
         return "%s-%s" %(self.departure, self.__destination)
 
     def dictionary_represantation(self):
-        return {"route" : self.route_info(), "route number" : self.routeNumber, "sits number" : self.sits_number}
+        return {self.__route_key : self.route_info(), self.__route_number_key : self.routeNumber, self.__sits_number_key : self.sits_number}
 
     def __eq__(self, other):
         result = False
