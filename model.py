@@ -31,8 +31,8 @@ class Model:
 
     def __delete_route_from_buses(self, route):
         for bus in self.buses:
-            if bus.route == route:
-                bus.route = None
+            if bus.route_number == route.routeNumber:
+                bus.route_number = 0
 
     def list_of_buses(self):
         return list(self.buses)
@@ -85,7 +85,6 @@ class Model:
         return [x.route_info() for x in self.routes]
 
     def buses_list_dictionary_represantation(self):
-        return [x.dictionary_represantation() for x in self.buses]
+        return [x.dictionary_represantation(self.get_route_with_number(x.route_number)) for x in self.buses]
     def routes_list_dictionary_represantation(self):
         return [x.dictionary_represantation() for x in self.routes]
-

@@ -13,7 +13,8 @@ class View:
         print "6. Add new route"
         print "7. Delete route"
         print "8. Change existing route"
-        print "9. Exit"
+        print "9. Search for route by departure"
+        print "10. Exit"
         View.separator_line()
 
     @staticmethod
@@ -26,7 +27,7 @@ class View:
 # Methods for operation with bus
     @staticmethod
     def add_new_bus():
-        print "Add new bus"
+        print "Ad d new bus"
         print "Input name, number, and route number. Enter 0 to route number to leave it empty"
 
     @staticmethod
@@ -48,7 +49,7 @@ class View:
     @staticmethod
     def add_new_route():
         print "Add new route"
-        print "Input route departure, route number and number of sits"
+        print "Input route departure, route number and time"
         View.separator_line()
 
     @staticmethod
@@ -64,8 +65,14 @@ class View:
     @staticmethod
     def change_route_two():
         print "Change route items"
-        print "Enter new value for item or enter 0 to skip"
-        
+        print "Enter new value for item or press enter to skip"
+
+# Search method
+
+    @staticmethod
+    def search_for_bus():
+        print "Enter the departure place and time"
+        print "Press enter to skip"
 
 # System methods
     @staticmethod
