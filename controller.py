@@ -237,6 +237,7 @@ def search_bus_session():
     View.search_for_bus
     try:
         departure = str(raw_input(constants.const_departure))
+        time = str(raw_input(constants.const_time_hours))
     except ValueError:
         View.error_message()
     else:
@@ -244,11 +245,15 @@ def search_bus_session():
             View.error_message()
         else:
             routes = []
+            print "time %s" %time
             for r in myModel.routes:
-                if departure == r.departure:
+                if departure == r.departure and search_for_time(r.departure_time, time):
+                    print search_for_time(r.departure_time, time)
                     routes.append(r.dictionary_represantation())
             View.display(routes)
 
+def search_for_time(departure_time, hours):
+    return departure_time[0:2] <= hours
 
 def time_validation(hours, minutes):
     result = hours + ":" + minutes

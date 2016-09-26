@@ -71,7 +71,7 @@ class View:
 
     @staticmethod
     def search_for_bus():
-        print "Enter the departure place and time"
+        print "Enter the  departure place and hour before bus leave"
         print "Press enter to skip"
 
 # System methods
